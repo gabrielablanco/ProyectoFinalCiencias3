@@ -1,0 +1,8 @@
+entity main {
+  num: integer
+  x: integer
+}                     
+
+
+
+

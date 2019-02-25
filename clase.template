@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+{% for property in entity.properties[1:] %}
+int fibonacci({{property.type|c_type}} {{property.name}}){
+	if({{property.name}} > 2)
+		return fibonacci({{property.name}}-1) + fibonacci({{property.name}}-2);
+	else if({{property.name}}==2 || {{property.name}}==1)
+		return 1;
+	else if ({{property.name}}==0)
+		return 0;
+}
+{% endfor %}
+
+int {{entity.name|capitalize}}(){
+	{% for property in entity.properties[:1] %}
+	{% if property is entity %}
+	{{property.type.name|capitalize}} {{property.name}};
+    {% else %} 
+	{{property.type|c_type}} {{property.name}};
+	{% endif %}
+	{% endfor %}
+	{% for property in entity.properties[:1] %}
+	for ({{property.name}}=0; {{property.name}}<=20; {{property.name}}++)){
+		cout << fibonacci({{property.name}}) << " " << endl;
+	}
+	{% endfor %}
+	return 0;
+}
+
